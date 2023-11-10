@@ -1,5 +1,7 @@
 numpy
-opencv-python-headless
 tensorflow
 tensorflow-hub
 requests
+torch
+opencv-python
+urllib3
