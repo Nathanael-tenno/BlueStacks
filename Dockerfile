@@ -9,6 +9,9 @@ RUN npm install
 # Install Python 3 and its dependencies
 RUN apt-get update && apt-get install -y python3 python3-pip
 
+# Menyalin package.json dan package-lock.json ke dalam container
+COPY package*.json ./
+
 # Upgrade pip for Python 3
 RUN python3 -m pip install --no-cache-dir --upgrade pip
 
