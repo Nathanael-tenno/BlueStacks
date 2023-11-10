@@ -1,9 +1,13 @@
-FROM node:18.12.1
+# Menggunakan Node.js sebagai base image
+FROM node:14
 
-# Set working directory
+# Membuat direktori kerja di dalam container
 WORKDIR /app
 
-# Install Node.js dependencies
+# Menyalin package.json dan package-lock.json ke dalam container
+COPY package*.json ./
+
+# Menginstal dependensi
 RUN npm install
 
 # Install Python 3 and its dependencies
@@ -19,11 +23,11 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Copy all files to the working directory
+# Menyalin kode aplikasi ke dalam container
 COPY . .
 
-# Expose the port
-EXPOSE 5000
+# Mengexpose port 8000
+EXPOSE 8000
 
-# Start the application
-CMD [ "npm", "run", "start" ]
+# Menjalankan aplikasi saat container berjalan
+CMD ["node", "server.js"]
