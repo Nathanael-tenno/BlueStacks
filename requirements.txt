@@ -1,7 +1,6 @@
+opencv-python
 numpy
 tensorflow
-tensorflow-hub
+tensorflow_hub
 requests
-torch
-opencv-python
 urllib3
