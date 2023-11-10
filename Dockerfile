@@ -7,27 +7,28 @@ WORKDIR /app
 # Menyalin package.json dan package-lock.json ke dalam container
 COPY package*.json ./
 
-# Menginstal dependensi
+# Menginstal dependensi Node.js
 RUN npm install
 
-# Install Python 3 and its dependencies
-RUN apt-get update && apt-get install -y python3 python3-pip
+# Menggunakan image Python terbaru, menginstal Python dan pip terbaru
+FROM python:3.10-slim
 
-# Menyalin package.json dan package-lock.json ke dalam container
-COPY package*.json ./
+# Membuat direktori kerja di dalam container untuk aplikasi Python
+WORKDIR /app
 
-# Upgrade pip for Python 3
-RUN python3 -m pip install --no-cache-dir --upgrade pip
+# Upgrade pip untuk Python dan install opencv-python
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install opencv-python
 
-# Copy requirements.txt and install Python dependencies
+# Menyalin requirements.txt dan menginstal dependensi Python lainnya
 COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Menyalin kode aplikasi ke dalam container
 COPY . .
 
-# Mengexpose port 8000
+# Mengexpose port yang dibutuhkan oleh aplikasi Node.js dan Python
 EXPOSE 8000
 
-# Menjalankan aplikasi saat container berjalan
+# Menjalankan aplikasi Node.js saat container berjalan
 CMD ["node", "server.js"]
