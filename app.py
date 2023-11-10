@@ -77,4 +77,5 @@ if __name__ == "__main__":
         prediction_result = predict(image_url)
         print(prediction_result)
     except Exception as e:
-        print(f"Error: {e}")
+        print("Error: " + e)
+
