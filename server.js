@@ -63,7 +63,8 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     };
     const docRef = await db.collection("file").add(photoData);
 
-    const pythonProcess = spawn("C:\\Users\\Nathan\\AppData\\Local\\Programs\\Python\\Python311\\python.exe", [__dirname + "/app.py", signedUrl]);
+    const pythonProcess = spawn("python", ["app.py", signedUrl]);
+
 
     let prediction = "";
     let errorOutput = "";
